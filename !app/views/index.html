@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+{% block pageTitle %}
+    CPS  - Housekeeping and Casework App
+{% endblock %}
+{% block content %}
+
+<script src="/public/javascripts/accordion.js"></script>
+
+<div class="govuk-grid-row index-page">
+    <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-xl">Prototype versions and links</h1>
+        <h2 class="govuk-heading-m"></h2>
+
+        <p><strong class="govuk-tag">Current version</strong></p>
+
+        <!-- CHRIS NEW VERSION 0 - START -->
+        {% include './version-0/_summary.html' %}
+        <!-- CHRIS NEW VERSION 0 -END -->
+
+        <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
+
+        <p><strong class="govuk-tag govuk-tag--green">Previous versions</strong></p>
+
+        <h2 class="govuk-heading-m govuk-!-margin-top-3">
+            Private Beta
+            <span class="govuk-caption-m">21st May 2025 - Present</span>
+        </h2>
+
+        <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-private-beta">
+
+            <div class="govuk-accordion__section">
+                <div class="govuk-accordion__section-header">
+                    <h2 class="govuk-accordion__section-heading">
+                        <span class="govuk-accordion__section-button" id="accordion-private-beta-heading-1">Older design iterations</span>
+                    </h2>
+                </div>
+                <div id="accordion-private-beta-content-1" class="govuk-accordion__section-content" aria-labelledby="accordion-private-beta-heading-1">
+
+                    <p>No previous versions created yet</p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

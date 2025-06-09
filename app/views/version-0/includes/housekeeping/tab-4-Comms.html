@@ -12,7 +12,8 @@
         <div class="govuk-grid-row">
             <div class="govuk-grid-column-two-thirds">
                 <div class="info_wrapper">
-                    <button id="show_filter_Comms" type="button" class="govuk-button  govuk-button--secondary" data-module="govuk-button">Show filter</button>
+                    <button id="show_filter_Comms" type="button" class="govuk-button  govuk-button--secondary"
+                        data-module="govuk-button">Show filter</button>
                     <p>Showing <strong>1</strong> communications out of <strong>1</strong></p>
                 </div>
             </div>
@@ -20,13 +21,18 @@
             <div class="govuk-grid-column-one-third">
                 <div class="actions_holder">
                     <div class="moj-button-menu">
-                        <button type="button" class="govuk-button" data-module="govuk-button" id="show_Comms_Actions">
-                            Actions <svg width="11" height="5" viewBox="0 0 11 5" xmlns="http://www.w3.org/2000/svg"><path d="M5.5 0L11 5L0 5L5.5 0Z" fill="currentColor"></path></svg>
+                        <button type="button" class="govuk-button govuk-button--secondary" data-module="govuk-button"
+                            id="show_Comms_Actions">
+                            Actions <svg width="11" height="5" viewBox="0 0 11 5" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M5.5 0L11 5L0 5L5.5 0Z" fill="currentColor"></path>
+                            </svg>
                         </button>
                         <div class="hidden_buttons" id="comms_Actions">
-                            <button type="button" class="govuk-button" data-module="govuk-button">Auto Reclassify UM</button>
-                            <button type="button" class="govuk-button govuk-button--disabled reclassify_Comms_Mulitple_Docs" data-module="govuk-button" disabled>Reclassify to Unused</button>
-                            <button type="button" class="govuk-button govuk-button--disabled redact_Comms_Mulitple_Docs" data-module="govuk-button" disabled>View communications</button>
+                            <button type="button"
+                                class="govuk-button govuk-button--disabled reclassify_Comms_Mulitple_Docs"
+                                data-module="govuk-button" disabled>Reclassify to Unused</button>
+                            <button type="button" class="govuk-button govuk-button--disabled redact_Comms_Mulitple_Docs"
+                                data-module="govuk-button" disabled>View communications</button>
                         </div>
                     </div>
                 </div>
@@ -41,17 +47,24 @@
                     <th scope="col" class="govuk-table__header">
                         <div class="govuk-checkboxes govuk-checkboxes--small MT-15" data-module="govuk-checkboxes">
                             <div class="govuk-checkboxes__item">
-                                <input class="govuk-checkboxes__input" id="comms_documents_ALL" name="comms_document" type="checkbox" value="hmrc">
+                                <input class="govuk-checkboxes__input" id="comms_documents_ALL" name="comms_document"
+                                    type="checkbox" value="hmrc">
                                 <label class="govuk-label govuk-checkboxes__label" for="comms_documents_ALL"></label>
                             </div>
                         </div>
                     </th>
-                    <th scope="col" class="govuk-table__header"><button class="govuk-button" data-module="govuk-button">Subject</button></th>
-                    <th scope="col" class="govuk-table__header"><button class="govuk-button" data-module="govuk-button">In/Out</button></th>
-                    <th scope="col" class="govuk-table__header"><button class="govuk-button" data-module="govuk-button">Comms with</button></th>
-                    <th scope="col" class="govuk-table__header"><button class="govuk-button" data-module="govuk-button">Comms type</button></th>
-                    <th scope="col" class="govuk-table__header"><button class="govuk-button" data-module="govuk-button">Type</button></th>
-                    <th scope="col" class="govuk-table__header"><button class="govuk-button" data-module="govuk-button">Date</button></th>
+                    <th scope="col" class="govuk-table__header"><button class="govuk-button"
+                            data-module="govuk-button">Subject</button></th>
+                    <th scope="col" class="govuk-table__header"><button class="govuk-button"
+                            data-module="govuk-button">In/Out</button></th>
+                    <th scope="col" class="govuk-table__header"><button class="govuk-button"
+                            data-module="govuk-button">Comms with</button></th>
+                    <th scope="col" class="govuk-table__header"><button class="govuk-button"
+                            data-module="govuk-button">Comms type</button></th>
+                    <th scope="col" class="govuk-table__header"><button class="govuk-button"
+                            data-module="govuk-button">Type</button></th>
+                    <th scope="col" class="govuk-table__header"><button class="govuk-button"
+                            data-module="govuk-button">Date</button></th>
                     <th scope="col" class="govuk-table__header" style="width: 8%;"></th>
                 </tr>
             </thead>
@@ -65,14 +78,16 @@
                     <td class="govuk-table__cell">
                         <div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
                             <div class="govuk-checkboxes__item">
-                                <input class="govuk-checkboxes__input" id="comms_document_1" name="comms_document" type="checkbox" value="Select all">
+                                <input class="govuk-checkboxes__input" id="comms_document_1" name="comms_document"
+                                    type="checkbox" value="Select all">
                                 <label class="govuk-label govuk-checkboxes__label" for="comms_document_1"></label>
                             </div>
                         </div>
                     </td>
                     <td class="govuk-table__cell subject-cell">
                         <strong class="govuk-tag govuk-tag--blue">New</strong>
-                        <button type="button" class="govuk-button show_comms" data-module="govuk-button" onclick="return openComms();">Police update</button>
+                        <button type="button" class="govuk-button show_comms" data-module="govuk-button"
+                            onclick="return openComms();">Police update</button>
                     </td>
                     <td class="govuk-table__cell">Incoming</td>
                     <td class="govuk-table__cell ">Police</td>
@@ -80,13 +95,14 @@
                     <td class="govuk-table__cell">Other communication</td>
                     <td class="govuk-table__cell">01/02/2025</td>
                     <td class="govuk-table__cell toggle-panel">
-                        <button type="button" class="govuk-button show_comms_actions" data-module="govuk-button" onclick="return openComms();">Actions<i class="fa-solid fa-chevron-down"></i></span>
+                        <button type="button" class="govuk-button show_comms_actions" data-module="govuk-button"
+                            onclick="return openComms();">Actions<i class="fa-solid fa-chevron-down"></i></span>
                     </td>
                 </tr>
                 <!-- ||||||||||||||| ROW 1 - END ||||||||||||||| -->
 
                 <!-- ||||||||||||||| ROW 2 - START ||||||||||||||| -->
-<!--                 <tr class="govuk-table__row">
+                <!--                 <tr class="govuk-table__row">
                     <td class="govuk-table__cell">
                         <div class="govuk-checkboxes govuk-checkboxes--small MT-15" data-module="govuk-checkboxes">
                             <div class="govuk-checkboxes__item">
@@ -108,10 +124,10 @@
                         <button type="button" class="govuk-button show_comms_actions" data-module="govuk-button" onclick="return openComms();">Actions<i class="fa-solid fa-chevron-down"></i></span>
                     </td>
                 </tr>
- -->                <!-- ||||||||||||||| ROW 2 - END ||||||||||||||| -->
+ --> <!-- ||||||||||||||| ROW 2 - END ||||||||||||||| -->
 
                 <!-- ||||||||||||||| ROW 3 - START ||||||||||||||| -->
-<!--                 <tr class="govuk-table__row">
+                <!--                 <tr class="govuk-table__row">
                     <td class="govuk-table__cell">
                         <div class="govuk-checkboxes govuk-checkboxes--small MT-15" data-module="govuk-checkboxes">
                             <div class="govuk-checkboxes__item">
@@ -133,10 +149,10 @@
                         <button type="button" class="govuk-button show_comms_actions" data-module="govuk-button" onclick="return openComms();">Actions<i class="fa-solid fa-chevron-down"></i></span>
                     </td>
                 </tr>
- -->                <!-- ||||||||||||||| ROW 3 - END ||||||||||||||| -->
+ --> <!-- ||||||||||||||| ROW 3 - END ||||||||||||||| -->
 
                 <!-- ||||||||||||||| ROW 4 - START ||||||||||||||| -->
-<!--                 <tr class="govuk-table__row">
+                <!--                 <tr class="govuk-table__row">
                     <td class="govuk-table__cell">
                         <div class="govuk-checkboxes govuk-checkboxes--small MT-15" data-module="govuk-checkboxes">
                             <div class="govuk-checkboxes__item">
@@ -157,10 +173,10 @@
                         <button type="button" class="govuk-button show_comms_actions" data-module="govuk-button" onclick="return openComms();">Actions<i class="fa-solid fa-chevron-down"></i></span>
                     </td>
                 </tr>
- -->                <!-- ||||||||||||||| ROW 4 - END ||||||||||||||| -->
+ --> <!-- ||||||||||||||| ROW 4 - END ||||||||||||||| -->
 
                 <!-- ||||||||||||||| ROW 5 - START ||||||||||||||| -->
-<!--                 <tr class="govuk-table__row">
+                <!--                 <tr class="govuk-table__row">
                     <td class="govuk-table__cell">
                         <div class="govuk-checkboxes govuk-checkboxes--small MT-15" data-module="govuk-checkboxes">
                             <div class="govuk-checkboxes__item">
@@ -181,10 +197,10 @@
                         <button type="button" class="govuk-button show_comms_actions" data-module="govuk-button" onclick="return openComms();">Actions<i class="fa-solid fa-chevron-down"></i></span>
                     </td>
                 </tr>
- -->                <!-- ||||||||||||||| ROW 5 - END ||||||||||||||| -->
+ --> <!-- ||||||||||||||| ROW 5 - END ||||||||||||||| -->
 
                 <!-- ||||||||||||||| ROW 6 - START ||||||||||||||| -->
-<!--                 <tr class="govuk-table__row">
+                <!--                 <tr class="govuk-table__row">
                     <td class="govuk-table__cell">
                         <div class="govuk-checkboxes govuk-checkboxes--small MT-15" data-module="govuk-checkboxes">
                             <div class="govuk-checkboxes__item">
@@ -205,10 +221,10 @@
                         <button type="button" class="govuk-button show_comms_actions" data-module="govuk-button" onclick="return openComms();">Actions<i class="fa-solid fa-chevron-down"></i></span>
                     </td>
                 </tr>
- -->                <!-- ||||||||||||||| ROW 6 - END ||||||||||||||| -->
+ --> <!-- ||||||||||||||| ROW 6 - END ||||||||||||||| -->
 
                 <!-- ||||||||||||||| ROW 7 - START ||||||||||||||| -->
-<!--                 <tr class="govuk-table__row">
+                <!--                 <tr class="govuk-table__row">
                     <td class="govuk-table__cell">
                         <div class="govuk-checkboxes govuk-checkboxes--small MT-15" data-module="govuk-checkboxes">
                             <div class="govuk-checkboxes__item">
@@ -229,10 +245,10 @@
                         <button type="button" class="govuk-button show_comms_actions" data-module="govuk-button" onclick="return openComms();">Actions<i class="fa-solid fa-chevron-down"></i></span>
                     </td>
                 </tr>
- -->                <!-- ||||||||||||||| ROW 7 - END ||||||||||||||| -->
+ --> <!-- ||||||||||||||| ROW 7 - END ||||||||||||||| -->
 
                 <!-- ||||||||||||||| ROW 8 - START ||||||||||||||| -->
-<!--                 <tr class="govuk-table__row">
+                <!--                 <tr class="govuk-table__row">
                     <td class="govuk-table__cell">
                         <div class="govuk-checkboxes govuk-checkboxes--small MT-15" data-module="govuk-checkboxes">
                             <div class="govuk-checkboxes__item">
@@ -253,10 +269,10 @@
                         <button type="button" class="govuk-button show_comms_actions" data-module="govuk-button" onclick="return openComms();">Actions<i class="fa-solid fa-chevron-down"></i></span>
                     </td>
                 </tr>
- -->                <!-- ||||||||||||||| ROW 8 - END ||||||||||||||| -->
+ --> <!-- ||||||||||||||| ROW 8 - END ||||||||||||||| -->
 
                 <!-- ||||||||||||||| ROW 9 - START ||||||||||||||| -->
-<!--                 <tr class="govuk-table__row">
+                <!--                 <tr class="govuk-table__row">
                     <td class="govuk-table__cell">
                         <div class="govuk-checkboxes govuk-checkboxes--small MT-15" data-module="govuk-checkboxes">
                             <div class="govuk-checkboxes__item">
@@ -277,10 +293,10 @@
                         <button type="button" class="govuk-button show_comms_actions" data-module="govuk-button" onclick="return openComms();">Actions<i class="fa-solid fa-chevron-down"></i></span>
                     </td>
                 </tr>
-  -->               <!-- ||||||||||||||| ROW 9 - END ||||||||||||||| -->
+  --> <!-- ||||||||||||||| ROW 9 - END ||||||||||||||| -->
 
                 <!-- ||||||||||||||| ROW 10 - START ||||||||||||||| -->
-<!--                 <tr class="govuk-table__row">
+                <!--                 <tr class="govuk-table__row">
                     <td class="govuk-table__cell">
                         <div class="govuk-checkboxes govuk-checkboxes--small MT-15" data-module="govuk-checkboxes">
                             <div class="govuk-checkboxes__item">
@@ -301,10 +317,10 @@
                         <button type="button" class="govuk-button show_comms_actions" data-module="govuk-button" onclick="return openComms();">Actions<i class="fa-solid fa-chevron-down"></i></span>
                     </td>
                 </tr>
- -->                <!-- ||||||||||||||| ROW 10 - END ||||||||||||||| -->
+ --> <!-- ||||||||||||||| ROW 10 - END ||||||||||||||| -->
 
                 <!-- ||||||||||||||| ROW 11 - START ||||||||||||||| -->
-<!--                 <tr class="govuk-table__row">
+                <!--                 <tr class="govuk-table__row">
                     <td class="govuk-table__cell">
                         <div class="govuk-checkboxes govuk-checkboxes--small MT-15" data-module="govuk-checkboxes">
                             <div class="govuk-checkboxes__item">
@@ -325,10 +341,10 @@
                         <button type="button" class="govuk-button show_comms_actions" data-module="govuk-button" onclick="return openComms();">Actions<i class="fa-solid fa-chevron-down"></i></span>
                     </td>
                 </tr>
- -->                <!-- ||||||||||||||| ROW 11 - END ||||||||||||||| -->
+ --> <!-- ||||||||||||||| ROW 11 - END ||||||||||||||| -->
 
                 <!-- ||||||||||||||| ROW 12 - START ||||||||||||||| -->
-<!--                 <tr class="govuk-table__row">
+                <!--                 <tr class="govuk-table__row">
                     <td class="govuk-table__cell">
                         <div class="govuk-checkboxes govuk-checkboxes--small MT-15" data-module="govuk-checkboxes">
                             <div class="govuk-checkboxes__item">
@@ -349,10 +365,10 @@
                         <button type="button" class="govuk-button show_comms_actions" data-module="govuk-button" onclick="return openComms();">Actions<i class="fa-solid fa-chevron-down"></i></span>
                     </td>
                 </tr>
- -->                <!-- ||||||||||||||| ROW 12 - END ||||||||||||||| -->
+ --> <!-- ||||||||||||||| ROW 12 - END ||||||||||||||| -->
 
                 <!-- ||||||||||||||| ROW 13 - START ||||||||||||||| -->
-<!--                 <tr class="govuk-table__row">
+                <!--                 <tr class="govuk-table__row">
                     <td class="govuk-table__cell">
                         <div class="govuk-checkboxes govuk-checkboxes--small MT-15" data-module="govuk-checkboxes">
                             <div class="govuk-checkboxes__item">
@@ -373,10 +389,10 @@
                         <button type="button" class="govuk-button show_comms_actions" data-module="govuk-button" onclick="return openComms();">Actions<i class="fa-solid fa-chevron-down"></i></span>
                     </td>
                 </tr>
- -->                <!-- ||||||||||||||| ROW 13 - END ||||||||||||||| -->
+ --> <!-- ||||||||||||||| ROW 13 - END ||||||||||||||| -->
 
                 <!-- ||||||||||||||| ROW 14 - START ||||||||||||||| -->
-<!--                 <tr class="govuk-table__row">
+                <!--                 <tr class="govuk-table__row">
                     <td class="govuk-table__cell">
                         <div class="govuk-checkboxes govuk-checkboxes--small MT-15" data-module="govuk-checkboxes">
                             <div class="govuk-checkboxes__item">
@@ -397,10 +413,10 @@
                         <button type="button" class="govuk-button show_comms_actions" data-module="govuk-button" onclick="return openComms();">Actions<i class="fa-solid fa-chevron-down"></i></span>
                     </td>
                 </tr>
- -->                <!-- ||||||||||||||| ROW 14 - END ||||||||||||||| -->
+ --> <!-- ||||||||||||||| ROW 14 - END ||||||||||||||| -->
 
                 <!-- ||||||||||||||| ROW 15 - START ||||||||||||||| -->
-<!--                 <tr class="govuk-table__row">
+                <!--                 <tr class="govuk-table__row">
                     <td class="govuk-table__cell">
                         <div class="govuk-checkboxes govuk-checkboxes--small MT-15" data-module="govuk-checkboxes">
                             <div class="govuk-checkboxes__item">
@@ -421,7 +437,7 @@
                         <button type="button" class="govuk-button show_comms_actions" data-module="govuk-button" onclick="return openComms();">Actions<i class="fa-solid fa-chevron-down"></i></span>
                     </td>
                 </tr>
- -->                <!-- ||||||||||||||| ROW 15 - END ||||||||||||||| -->
+ --> <!-- ||||||||||||||| ROW 15 - END ||||||||||||||| -->
 
             </tbody>
         </table>
