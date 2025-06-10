@@ -1527,3 +1527,46 @@ main.case-files {
 /*.moj-sub-navigation__link[aria-current=page]:before {
     bottom:-8px;
 }*/
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////// RECLASSIFY STYLES /////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/* Styling for items that have been reclassified to unused */
+.reclassified-unused {
+     background-color: #f8f8f8;
+     opacity: 0.7;
+     
+     .govuk-table__cell {
+          color: #6f777b;
+     }
+     
+     .govuk-button {
+          opacity: 0.8;
+     }
+}
+
+/* Unused status tag styling */
+.govuk-tag--red {
+     background-color: #d4351c;
+     color: white;
+}
+
+/* Success notification banner styling */
+.govuk-notification-banner--success {
+     border: 5px solid #00703c;
+     
+     .govuk-notification-banner__header {
+          background-color: #00703c;
+          
+          .govuk-notification-banner__title {
+               color: white;
+          }
+     }
+     
+     .govuk-notification-banner__content {
+          background-color: #f3f9f1;
+          
+          .govuk-notification-banner__heading {
+               color: #00703c;
+          }
+     }
+}

@@ -251,11 +251,30 @@ $(document).ready(function() {
      $('.tab-3-content').on("click", function (e) {
           $('.panel').hide();
           $('#tab_content_3').show();
+          $('#tab-list').show();
+          $('#docCopy').hide();
+     });
+
+     $('.tab-3-content_link').on("click", function (e) {
+          $('.panel').hide();
+          $('#tab_content_3').show();
+          $('#tab-list').show();
+          $('#docCopy').hide();
      });
 
      $('.tab-4-content').on("click", function (e) {
           $('.panel').hide();
           $('#tab_content_4').show();
+     });
+     
+     $('.tab-5-content').on("click", function (e) {
+          $('.panel').hide();
+          $('#tab_content_5').show();
+     });
+
+     $('.tab-5-content_link').on("click", function (e) {
+          $('.panel').hide();
+          $('#tab_content_5').show();
      });
 
 });
@@ -654,7 +673,27 @@ $(document).ready(function() {
      //      $('table#materials_table tr.hidden_row').hide();     
      // });
 
+     $('.redact_Document_Mulitple_Docs').click(function(){
+          $('ul#tab-list').show();
+
+          $('ul#new-tabs li').removeClass('list-item--selected govuk-tabs__list-item--selected');
+          $('ul#new-tabs li.tab-3-content_link').addClass('list-item--selected govuk-tabs__list-item--selected');
+
+          $('.panel').hide();
+          $('#tab_content_2').hide();
+          $('#docCopy').hide();
+          $('#tab_content_3').show();
+
+          var redactedDocuments = parseInt($("input[name=materials_document]:checked").length);
+          var existingNUmber = parseInt($('.redacted_documents').text());
+          $('.redacted_documents').text(redactedDocuments + existingNUmber);
+          
+          // Scroll to a position above the tabs
+          scrollToTab3Position();
+     });
+     
      $('.redact_Document').click(function(){
+          $('.panel').hide();
           $('#tab_content_2').hide();
           $('#tab_content_3').show();
           $('#tab-list').show();
@@ -666,20 +705,38 @@ $(document).ready(function() {
 
           var redactedDocuments = parseInt($('.redacted_documents').text());
           $('.redacted_documents').text(redactedDocuments + 1);
-     });  
+          
+          // Scroll to a position above the tabs
+          scrollToTab3Position();
+     });
 
      $('#filter_Redactions table .openMe a').click(function(){
           $('ul#tab-list').show();
           var redactedDocuments = parseInt($('.redacted_documents').text());
           $('.redacted_documents').text(redactedDocuments + 1);
 
+          $('.panel').hide();
+          $('#tab_content_3').show();
+
           $('#filter_Redactions table tbody tr').removeClass('active_document');
           // $('#filter_Redactions table tbody tr td strong.govuk-tag').remove();
           $(this).closest('tr').addClass('active_document').removeClass('unread_document');
           $(this).closest('td').prepend(`<strong class="govuk-tag active_document">Active document</strong>`);
+          
+          // Scroll to a position above the tabs
+          scrollToTab3Position();
      });            
 
 });
+
+function scrollToTab3Position() {
+     // Get the tabs position
+     var tabsPosition = $('#tab-list').offset().top;
+     // Scroll to a position 200px above the tabs
+     $('html, body').animate({
+          scrollTop: tabsPosition - 200
+     }, 300);
+}
 
 function closeTab() {
      var redactedDocuments = parseInt($('.redacted_documents').text());
@@ -788,6 +845,11 @@ $(document).ready(function() {
 
 });
 
+function documentRename() {
+     var documentName = $('#filter_Redactions table tr.active_document a.show-case').text();
+     $('#rename-Document').val(documentName);
+}
+
 function renameDocument() {
      $('#rename_form').hide();
      $('#completing_rename').show();
@@ -815,11 +877,6 @@ function renameDocument() {
     // $('#documentNameHeader .inPageSearchMargins2').text(newDocumentName);   
 }
 
-function documentRename() {
-     var documentName = $('#filter_Redactions table tr.active_document a.show-case').text();
-     $('#rename-Document').val(documentName);
-}
-
 function openRenameModal() {
      $("#openRenameModal").removeClass("rj-dont-display");
 }
@@ -838,20 +895,6 @@ $(document).ready(function() {
           } else {
                $(this).closest('tr').removeClass('selected_for_readcation');
           }
-     });
-
-     $(".redact_Document_Mulitple_Docs").click(function(){
-          $('ul#tab-list').show();
-
-          $('ul#new-tabs li').removeClass('list-item--selected govuk-tabs__list-item--selected');
-          $('ul#new-tabs li.tab-3-content_link').addClass('list-item--selected govuk-tabs__list-item--selected');
-
-          $('#tab_content_2, #docCopy').hide();
-          $('#tab_content_3').show();
-
-          var redactedDocuments = parseInt($("input[name=materials_document]:checked").length);
-          var existingNUmber = parseInt($('.redacted_documents').text());
-          $('.redacted_documents').text(redactedDocuments + existingNUmber);
      });
 
      $('.activate_Statements, .activate_MG_Forms, .activate_Other').hide();
@@ -922,8 +965,12 @@ $(document).ready(function () {
     });
 
     $(".search-item a").on("click", function (e) {
+        $('.panel').hide();
         $('#tab_content_2').hide();
-        $('#tab_content_3, ul#tab-list').show();
+        $('#tab_content_3').show();
+        $('#docCopy').hide();
+        $('ul#tab-list').show();
+        
         $('ul#new-tabs li').removeClass('govuk-tabs__list-item--selected');
         $('ul#new-tabs li.tab-3-content_link').addClass('govuk-tabs__list-item--selected');
 

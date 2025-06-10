@@ -767,13 +767,14 @@ table {
                                         color: white;
                                         // text-indent: -1000em;
                                         &:after {
-                                             content: 'Redact';
+                                             content: 'Review and redact';
                                              font-size: 1.18rem;
                                              color: $govuk-link-colour;
                                              text-decoration: underline;
                                              position: absolute;
                                              right: 0;
                                              top: 0;
+                                             white-space: nowrap;
                                         }
                                    }
                               }
