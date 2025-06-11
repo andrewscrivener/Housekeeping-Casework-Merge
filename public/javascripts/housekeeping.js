@@ -1,4 +1,10 @@
 // =================================== HOUSEKEEPING =================================== //
+// 
+// COUNTER UPDATES: Added counter update functions for materials and communications
+// - updateMaterialsCounters(): Updates counts/totals for materials after filtering
+// - updateCommsCounters(): Updates counts/totals for communications after filtering
+// These functions handle "showing X of Y" displays and tab counters
+//
 
 // $(document).ready(function() {
 //    $("body")
@@ -251,11 +257,30 @@ $(document).ready(function() {
      $('.tab-3-content').on("click", function (e) {
           $('.panel').hide();
           $('#tab_content_3').show();
+          $('#tab-list').show();
+          $('#docCopy').hide();
+     });
+
+     $('.tab-3-content_link').on("click", function (e) {
+          $('.panel').hide();
+          $('#tab_content_3').show();
+          $('#tab-list').show();
+          $('#docCopy').hide();
      });
 
      $('.tab-4-content').on("click", function (e) {
           $('.panel').hide();
           $('#tab_content_4').show();
+     });
+     
+     $('.tab-5-content').on("click", function (e) {
+          $('.panel').hide();
+          $('#tab_content_5').show();
+     });
+
+     $('.tab-5-content_link').on("click", function (e) {
+          $('.panel').hide();
+          $('#tab_content_5').show();
      });
 
 });
@@ -264,6 +289,44 @@ $(document).ready(function() {
 $(document).ready(function() {
 
      $('#show_filter_Comms, #show_filter_Materials, .no_results, #show_filter_Redactions').hide();
+     
+     // Initialize counters on page load
+     if (typeof updateMaterialsCounters === 'function') {
+          updateMaterialsCounters();
+     }
+     if (typeof updateCommsCounters === 'function') {
+          updateCommsCounters();
+     }
+     
+     // Set up a MutationObserver to watch for table changes and update counters automatically
+     // This ensures counters are updated regardless of which filtering system is used
+     if (window.MutationObserver && document.querySelector('#materials_table')) {
+          var observer = new MutationObserver(function(mutations) {
+               var shouldUpdate = false;
+               mutations.forEach(function(mutation) {
+                    if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
+                         shouldUpdate = true;
+                    }
+                    if (mutation.type === 'childList') {
+                         shouldUpdate = true;
+                    }
+               });
+               if (shouldUpdate && typeof updateMaterialsCounters === 'function') {
+                    updateMaterialsCounters();
+               }
+          });
+          
+          // Start observing table rows for style changes (show/hide)
+          var tableRows = document.querySelectorAll('#materials_table tbody tr');
+          tableRows.forEach(function(row) {
+               observer.observe(row, { 
+                    attributes: true, 
+                    attributeFilter: ['style'],
+                    childList: false,
+                    subtree: false
+               });
+          });
+     }
 
      // MATERIALS
      $("#close_filter_Materials").on("click", function (e) {
@@ -311,14 +374,96 @@ $(document).ready(function() {
      $('.materials_filters_clear_All').on("click", function (e) {
           e.preventDefault();
           $('#active_filter').hide();
-          $('table#materials_table tr.material_All').show();
+          // Show only main rows, not hidden detail rows
+          $('table#materials_table tr.material_All:not(.hidden_row)').show();
+          // Ensure hidden detail rows stay hidden
+          $('table#materials_table tr.hidden_row').hide();
           $('input[name=filter_materials__New]').prop('checked', false);
           $('input[name=filter_materials__Status]').prop('checked', false);
           $('input[name=filter_materials__Category]').prop('checked', false);
+          $('.no_results').hide();
+          
+          // Update counters after clearing filters
+          updateMaterialsCounters();
      });
 
+     // Function to update materials counters and "showing X of Y" displays
+     function updateMaterialsCounters() {
+          // Count total materials (excluding header row and hidden detail rows)
+          var totalMaterials = $('table#materials_table tbody tr:not(.hidden_row)').length;
+          
+          // Count visible materials (excluding header row and hidden detail rows, only main rows that are visible)
+          var visibleMaterials = $('table#materials_table tbody tr:visible:not(.hidden_row)').length;
+          
+          // Update the specific counter structure from the HTML template
+          // Find the paragraph that contains "Showing X materials out of Y"
+          var counterParagraph = $('.info_wrapper p');
+          if (counterParagraph.length > 0) {
+               // Update the content with the new counts
+               counterParagraph.html('Showing <strong>' + visibleMaterials + '</strong> materials out of <strong>' + totalMaterials + '</strong>');
+          }
+          
+          // Also try to update any alternative counter patterns
+          $('[data-materials-shown]').text(visibleMaterials);
+          $('[data-materials-total]').text(totalMaterials);
+          
+          // Update tab counters - target the specific Materials list tab
+          var materialsTab = $('.tab-2-content');
+          if (materialsTab.length > 0) {
+               // Extract and update the number in parentheses
+               var tabText = materialsTab.text();
+               var updatedText = tabText.replace(/\(\d+\)/, '(' + totalMaterials + ')');
+               materialsTab.text(updatedText);
+          }
+          
+          // Update any counter in tabs or other elements using common patterns
+          $('.materials-count, .materials-counter').text(visibleMaterials);
+          $('.materials-total').text(totalMaterials);
+          $('#materials-tab-count, .materials-tab .count, .materials-tab .badge').text(visibleMaterials);
+          
+          // Handle no results display
+          if (visibleMaterials === 0) {
+               $('.no_results').show();
+          } else {
+               $('.no_results').hide();
+          }
+     }
+
+     // Function to update communications counters and "showing X of Y" displays
+     function updateCommsCounters() {
+          // Count total communications (excluding header row)
+          var totalComms = $('table#comms_table tbody tr, .comms-list tbody tr, .communications-table tbody tr').length;
+          
+          // Count visible communications
+          var visibleComms = $('table#comms_table tbody tr:visible, .comms-list tbody tr:visible, .communications-table tbody tr:visible').length;
+          
+          // Update "showing X of Y" displays
+          $('[data-comms-shown], [data-comm-shown]').text(visibleComms);
+          $('[data-comms-total], [data-comm-total]').text(totalComms);
+          
+          // Update tab badges/counters
+          $('#comms-tab-count, .comms-tab .count, .comms-tab .badge').text(visibleComms);
+          $('.comms-count, .comms-counter').text(visibleComms);
+          $('.comms-total').text(totalComms);
+          
+          // Update "showing" text displays
+          $('.showing-comms-count').text(visibleComms);
+          $('.total-comms-count').text(totalComms);
+          $('.comms-showing-text').text('Showing ' + visibleComms + ' of ' + totalComms + ' communications');
+          
+          // Handle no results display
+          if (visibleComms === 0) {
+               $('.no_results, #no-results-message').show();
+          } else {
+               $('.no_results, #no-results-message').hide();
+          }
+     }
 
      $('#applyFiltersBtn').on("click", function (e) {
+          // Reset visibility first - show all rows
+          $('table#materials_table tr').show();
+          $('.no_results').hide();
+          
           // SECTION 1
           if ($('input[name=filter_materials__New]').is(':checked')) {
                $('#active_filter').show();
@@ -389,7 +534,9 @@ $(document).ready(function() {
                $('table#materials_table thead tr, table#materials_table tr.material_Always_Unused').show();
                $('.no_results').show();
           }
-
+          
+          // Update counters after filtering
+          updateMaterialsCounters();
      });
 
      $('.selected_filter').on("click", function (e) {
@@ -400,17 +547,28 @@ $(document).ready(function() {
      $('.materials_filters_clear_New').on("click", function (e) {
           $('input[name=filter_materials__New]').prop('checked', false);
           $('.materials_filters_Title_1').hide();
+          // Show only main rows, not hidden detail rows
+          $('table#materials_table tr.material_All:not(.hidden_row)').show();
+          // Ensure hidden detail rows stay hidden
+          $('table#materials_table tr.hidden_row').hide();
+          
           if ($('input[name=filter_materials__New]:checked').length == 0 && $('input[name=filter_materials__Status]:checked').length == 0 && $('input[name=filter_materials__Category]:checked').length == 0) {
                $('#active_filter').hide();
           } else {
                $('#active_filter').show();
           }
+          
+          // Update counters after clearing filter
+          updateMaterialsCounters();
      });  
 
      // SECTION 2
      $('.materials_filters_clear_Used').on("click", function (e) {
           $('input[id=filter_materials__Status_1]').prop('checked', false);
-          $('table#materials_table tr.material_All').show();
+          // Show only main rows, not hidden detail rows
+          $('table#materials_table tr.material_All:not(.hidden_row)').show();
+          // Ensure hidden detail rows stay hidden
+          $('table#materials_table tr.hidden_row').hide();
 
           if ($('input[name=filter_materials__New]:checked').length == 0 && $('input[name=filter_materials__Status]:checked').length == 0 && $('input[name=filter_materials__Category]:checked').length == 0) {
                $('#active_filter').hide();
@@ -420,6 +578,9 @@ $(document).ready(function() {
           } else {
                $('#active_filter').show();
           }
+          
+          // Update counters after clearing filter
+          updateMaterialsCounters();
      });  
 
      $('.materials_filters_clear_Unused').on("click", function (e) {
@@ -481,7 +642,10 @@ $(document).ready(function() {
 
      $('.materials_filters_clear_MG_Form').on("click", function (e) {
           $('input[id=filter_materials__Category_3]').prop('checked', false);
-          $('table#materials_table tr.material_All').show();
+          // Show only main rows, not hidden detail rows
+          $('table#materials_table tr.material_All:not(.hidden_row)').show();
+          // Ensure hidden detail rows stay hidden
+          $('table#materials_table tr.hidden_row').hide();
 
           if ($('input[name=filter_materials__New]:checked').length == 0 && $('input[name=filter_materials__Status]:checked').length == 0 && $('input[name=filter_materials__Category]:checked').length == 0) {
                $('#active_filter').hide();
@@ -491,6 +655,9 @@ $(document).ready(function() {
           } else {
                $('#active_filter').show();
           }
+          
+          // Update counters after clearing filter
+          updateMaterialsCounters();
      });  
 
      $('.materials_filters_clear_Other').on("click", function (e) {
@@ -590,9 +757,16 @@ $(document).ready(function() {
 
      $('input[name=materials_document]').click(function(){
           if ($("input[name=materials_document]:checked").length >= 1) {
-               $('.reclassify_Document_Mulitple_Docs, .redact_Document_Mulitple_Docs').removeAttr('disabled').removeClass('govuk-button--disabled') .attr('onClick', 'return pageActions();');
+               $('.reclassify_Document_Mulitple_Docs, .redact_Document_Mulitple_Docs').removeAttr('disabled').removeClass('govuk-button--disabled');
           } else if ($("input[name=materials_document]:checked").length == 0) {
-               $('.reclassify_Document_Mulitple_Docs, .redact_Document_Mulitple_Docs').attr('disabled','disabled').addClass('govuk-button--disabled').removeAttr('onClick');
+               $('.reclassify_Document_Mulitple_Docs, .redact_Document_Mulitple_Docs').attr('disabled','disabled').addClass('govuk-button--disabled');
+          }
+     });
+
+     // MATERIALS - Reclassify to Unused handler
+     $('.reclassify_Document_Mulitple_Docs').click(function(){
+          if (!$(this).is(':disabled')) {
+               reclassifyMaterialsToUnused();
           }
      });
 
@@ -612,6 +786,13 @@ $(document).ready(function() {
           } else if ($("input[name=comms_document]:checked").length == 0) { 
                $('.reclassify_Comms_Mulitple_Docs').attr('disabled','disabled').addClass('govuk-button--disabled');
                $('.redact_Comms_Mulitple_Docs').attr('disabled','disabled').addClass('govuk-button--disabled');
+          }
+     });
+
+     // COMMS - Reclassify to Unused handler
+     $('.reclassify_Comms_Mulitple_Docs').click(function(){
+          if (!$(this).is(':disabled')) {
+               reclassifyCommsToUnused();
           }
      });
 
@@ -654,7 +835,27 @@ $(document).ready(function() {
      //      $('table#materials_table tr.hidden_row').hide();     
      // });
 
+     $('.redact_Document_Mulitple_Docs').click(function(){
+          $('ul#tab-list').show();
+
+          $('ul#new-tabs li').removeClass('list-item--selected govuk-tabs__list-item--selected');
+          $('ul#new-tabs li.tab-3-content_link').addClass('list-item--selected govuk-tabs__list-item--selected');
+
+          $('.panel').hide();
+          $('#tab_content_2').hide();
+          $('#docCopy').hide();
+          $('#tab_content_3').show();
+
+          var redactedDocuments = parseInt($("input[name=materials_document]:checked").length);
+          var existingNUmber = parseInt($('.redacted_documents').text());
+          $('.redacted_documents').text(redactedDocuments + existingNUmber);
+          
+          // Scroll to a position above the tabs
+          scrollToTab3Position();
+     });
+     
      $('.redact_Document').click(function(){
+          $('.panel').hide();
           $('#tab_content_2').hide();
           $('#tab_content_3').show();
           $('#tab-list').show();
@@ -666,20 +867,38 @@ $(document).ready(function() {
 
           var redactedDocuments = parseInt($('.redacted_documents').text());
           $('.redacted_documents').text(redactedDocuments + 1);
-     });  
+          
+          // Scroll to a position above the tabs
+          scrollToTab3Position();
+     });
 
      $('#filter_Redactions table .openMe a').click(function(){
           $('ul#tab-list').show();
           var redactedDocuments = parseInt($('.redacted_documents').text());
           $('.redacted_documents').text(redactedDocuments + 1);
 
+          $('.panel').hide();
+          $('#tab_content_3').show();
+
           $('#filter_Redactions table tbody tr').removeClass('active_document');
           // $('#filter_Redactions table tbody tr td strong.govuk-tag').remove();
           $(this).closest('tr').addClass('active_document').removeClass('unread_document');
           $(this).closest('td').prepend(`<strong class="govuk-tag active_document">Active document</strong>`);
+          
+          // Scroll to a position above the tabs
+          scrollToTab3Position();
      });            
 
 });
+
+function scrollToTab3Position() {
+     // Get the tabs position
+     var tabsPosition = $('#tab-list').offset().top;
+     // Scroll to a position 200px above the tabs
+     $('html, body').animate({
+          scrollTop: tabsPosition - 200
+     }, 300);
+}
 
 function closeTab() {
      var redactedDocuments = parseInt($('.redacted_documents').text());
@@ -788,6 +1007,11 @@ $(document).ready(function() {
 
 });
 
+function documentRename() {
+     var documentName = $('#filter_Redactions table tr.active_document a.show-case').text();
+     $('#rename-Document').val(documentName);
+}
+
 function renameDocument() {
      $('#rename_form').hide();
      $('#completing_rename').show();
@@ -815,11 +1039,6 @@ function renameDocument() {
     // $('#documentNameHeader .inPageSearchMargins2').text(newDocumentName);   
 }
 
-function documentRename() {
-     var documentName = $('#filter_Redactions table tr.active_document a.show-case').text();
-     $('#rename-Document').val(documentName);
-}
-
 function openRenameModal() {
      $("#openRenameModal").removeClass("rj-dont-display");
 }
@@ -838,20 +1057,6 @@ $(document).ready(function() {
           } else {
                $(this).closest('tr').removeClass('selected_for_readcation');
           }
-     });
-
-     $(".redact_Document_Mulitple_Docs").click(function(){
-          $('ul#tab-list').show();
-
-          $('ul#new-tabs li').removeClass('list-item--selected govuk-tabs__list-item--selected');
-          $('ul#new-tabs li.tab-3-content_link').addClass('list-item--selected govuk-tabs__list-item--selected');
-
-          $('#tab_content_2, #docCopy').hide();
-          $('#tab_content_3').show();
-
-          var redactedDocuments = parseInt($("input[name=materials_document]:checked").length);
-          var existingNUmber = parseInt($('.redacted_documents').text());
-          $('.redacted_documents').text(redactedDocuments + existingNUmber);
      });
 
      $('.activate_Statements, .activate_MG_Forms, .activate_Other').hide();
@@ -922,8 +1127,12 @@ $(document).ready(function () {
     });
 
     $(".search-item a").on("click", function (e) {
+        $('.panel').hide();
         $('#tab_content_2').hide();
-        $('#tab_content_3, ul#tab-list').show();
+        $('#tab_content_3').show();
+        $('#docCopy').hide();
+        $('ul#tab-list').show();
+        
         $('ul#new-tabs li').removeClass('govuk-tabs__list-item--selected');
         $('ul#new-tabs li.tab-3-content_link').addClass('govuk-tabs__list-item--selected');
 
@@ -1011,4 +1220,138 @@ function openNotesModal() {
 
 function closeNotesModal() {
    $("#openNotesModal").addClass("rj-dont-display");
+}
+
+// ====================================================== RECLASSIFY FUNCTIONS
+
+/**
+ * Reclassifies selected materials to "Unused" status
+ * This function handles the bulk reclassification of checked materials
+ */
+function reclassifyMaterialsToUnused() {
+     // Get all checked materials
+     var checkedMaterials = $("input[name=materials_document]:checked");
+     var materialCount = checkedMaterials.length;
+     
+     if (materialCount === 0) {
+          return; // No materials selected
+     }
+     
+     var materialNames = [];
+     
+     // Collect material names and update their status in the UI
+     checkedMaterials.each(function() {
+          var materialName = $(this).val();
+          materialNames.push(materialName);
+          
+          // Find the corresponding table row and update the status
+          var row = $(this).closest('tr');
+          var statusCell = row.find('td:nth-child(6)'); // Status is the 6th column
+          
+          // Update the status tag to "Unused"
+          statusCell.html('<strong class="govuk-tag govuk-tag--red">Unused</strong>');
+          
+          // Remove "New" tag if present and add visual indicator
+          var titleCell = row.find('td:nth-child(2)');
+          titleCell.find('.govuk-tag--blue').remove(); // Remove "New" tag
+          row.addClass('reclassified-unused');
+          
+          // Add the material_Unused class for filtering and remove other status classes
+          row.removeClass('material_None material_Used').addClass('material_Unused');
+     });
+     
+     // Uncheck all materials
+     checkedMaterials.prop('checked', false);
+     $('#materials_documents_ALL').prop('checked', false);
+     
+     // Disable the action buttons
+     $('.reclassify_Document_Mulitple_Docs, .redact_Document_Mulitple_Docs')
+          .attr('disabled','disabled')
+          .addClass('govuk-button--disabled');
+     
+     // Show success notification
+     showReclassificationSuccess('materials', materialCount, materialNames);
+}
+
+/**
+ * Reclassifies selected communications to "Unused" status
+ * This function handles the bulk reclassification of checked communications
+ */
+function reclassifyCommsToUnused() {
+     // Get all checked communications
+     var checkedComms = $("input[name=comms_document]:checked");
+     var commsCount = checkedComms.length;
+     
+     if (commsCount === 0) {
+          return; // No communications selected
+     }
+     
+     var commsSubjects = [];
+     
+     // Collect communication subjects and update their status in the UI
+     checkedComms.each(function() {
+          var row = $(this).closest('tr');
+          var subjectCell = row.find('td:nth-child(2)'); // Subject is the 2nd column
+          var subjectText = subjectCell.find('button').text().trim();
+          commsSubjects.push(subjectText);
+          
+          // Remove "New" tag if present and add visual indicator
+          subjectCell.find('.govuk-tag--blue').remove(); // Remove "New" tag
+          row.addClass('reclassified-unused');
+          
+          // Add "Unused" indicator to the subject cell
+          subjectCell.prepend('<strong class="govuk-tag govuk-tag--red">Unused</strong>');
+     });
+     
+     // Uncheck all communications
+     checkedComms.prop('checked', false);
+     $('#comms_documents_ALL').prop('checked', false);
+     
+     // Disable the action buttons
+     $('.reclassify_Comms_Mulitple_Docs, .redact_Comms_Mulitple_Docs')
+          .attr('disabled','disabled')
+          .addClass('govuk-button--disabled');
+     
+     // Show success notification
+     showReclassificationSuccess('communications', commsCount, commsSubjects);
+}
+
+/**
+ * Shows a success notification when reclassification is complete
+ */
+function showReclassificationSuccess(type, count, items) {
+     // Hide any existing notifications
+     $('.govuk-notification-banner').hide();
+     
+     // Create success message
+     var itemText = count === 1 ? (type === 'materials' ? 'material' : 'communication') 
+                                : (type === 'materials' ? 'materials' : 'communications');
+     
+     var message = count + ' ' + itemText + ' successfully reclassified to "Unused"';
+     
+     // Create notification banner
+     var notification = $('<div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">' +
+          '<div class="govuk-notification-banner__header">' +
+               '<h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">Success</h2>' +
+          '</div>' +
+          '<div class="govuk-notification-banner__content">' +
+               '<h3 class="govuk-notification-banner__heading">' + message + '</h3>' +
+               '<ul class="govuk-list govuk-list--bullet">' +
+                    items.slice(0, 5).map(function(item) { return '<li>' + item + '</li>'; }).join('') +
+                    (items.length > 5 ? '<li>... and ' + (items.length - 5) + ' more</li>' : '') +
+               '</ul>' +
+          '</div>' +
+     '</div>');
+     
+     // Insert notification at the top of the content area
+     if (type === 'materials') {
+          $('#materials_column_2').prepend(notification);
+     } else {
+          $('.govuk-grid-column-three-quarters').first().prepend(notification);
+     }
+     
+     // Auto-hide after 10 seconds
+     setTimeout(function() {
+          notification.fadeOut();
+     }, 10000);
 }
