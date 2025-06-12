@@ -234,53 +234,101 @@
 // TABS
 $(document).ready(function() {
 
-    $("#new-tabs .tab-link").on("click", function (e) {
-        e.preventDefault();
-        $('ul#new-tabs li').removeClass('govuk-tabs__list-item--selected');
-        $(this).parent().addClass('govuk-tabs__list-item--selected');
+    // Function to get URL parameter by name
+    function getUrlParameter(name) {
+        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+        var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+        var results = regex.exec(location.search);
+        return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+    }
 
+    // Function to show a specific tab
+    function showTabByNumber(tabNumber) {
+        // Hide all panels
+        $('.panel').hide();
+        
+        // Remove selected class from all tab links
+        $('#new-tabs li').removeClass('govuk-tabs__list-item--selected');
+        
+        // Show the specific tab panel
+        $('#tab_content_' + tabNumber).show();
+        
+        // Add selected class to the specific tab link
+        $('.tab-' + tabNumber + '-content_link').addClass('govuk-tabs__list-item--selected');
+        
+        // Handle special cases for specific tabs
+        if (tabNumber == 3) {
+            $('#tab-list').show();
+            $('#docCopy').hide();
+        }
+        
+        if (tabNumber == 4) {
+            // Update communications counters when the tab is shown
+            if (typeof updateCommsCounters === 'function') {
+                updateCommsCounters();
+            }
+        }
+        
+        // Hide extra navigation elements
         $('.extra-nav').hide();
         $('.extended-navigation').removeClass('govuk-tabs__list-item--selected');
         $('.show-hide').removeClass('active');
+    }
+
+    // Check for tab parameter in URL and show appropriate tab
+    var tabParam = getUrlParameter('tab');
+    if (tabParam) {
+        showTabByNumber(tabParam);
+    }
+
+    // Updated tab click handler that works with URL parameters
+    $("#new-tabs .tab-link").on("click", function (e) {
+        e.preventDefault();
+        
+        // Get the tab number from the class name
+        var classes = $(this).attr('class');
+        var tabMatch = classes.match(/tab-(\d+)-content/);
+        if (tabMatch) {
+            var tabNumber = tabMatch[1];
+            showTabByNumber(tabNumber);
+        } else {
+            // Fallback to original behavior for non-numbered tabs
+            $('ul#new-tabs li').removeClass('govuk-tabs__list-item--selected');
+            $(this).parent().addClass('govuk-tabs__list-item--selected');
+
+            $('.extra-nav').hide();
+            $('.extended-navigation').removeClass('govuk-tabs__list-item--selected');
+            $('.show-hide').removeClass('active');
+        }
     });
 
+     // Keep existing individual tab handlers for backward compatibility
      $('.tab-1-content').on("click", function (e) {
-          $('.panel').hide();
-          $('#tab_content_1').show();
+          showTabByNumber(1);
      });
 
      $('.tab-2-content').on("click", function (e) {
-          $('.panel').hide();
-          $('#tab_content_2').show();
+          showTabByNumber(2);
      });
 
      $('.tab-3-content').on("click", function (e) {
-          $('.panel').hide();
-          $('#tab_content_3').show();
-          $('#tab-list').show();
-          $('#docCopy').hide();
+          showTabByNumber(3);
      });
 
      $('.tab-3-content_link').on("click", function (e) {
-          $('.panel').hide();
-          $('#tab_content_3').show();
-          $('#tab-list').show();
-          $('#docCopy').hide();
+          showTabByNumber(3);
      });
 
      $('.tab-4-content').on("click", function (e) {
-          $('.panel').hide();
-          $('#tab_content_4').show();
+          showTabByNumber(4);
      });
      
      $('.tab-5-content').on("click", function (e) {
-          $('.panel').hide();
-          $('#tab_content_5').show();
+          showTabByNumber(5);
      });
 
      $('.tab-5-content_link').on("click", function (e) {
-          $('.panel').hide();
-          $('#tab_content_5').show();
+          showTabByNumber(5);
      });
 
 });
@@ -320,6 +368,35 @@ $(document).ready(function() {
           var tableRows = document.querySelectorAll('#materials_table tbody tr');
           tableRows.forEach(function(row) {
                observer.observe(row, { 
+                    attributes: true, 
+                    attributeFilter: ['style'],
+                    childList: false,
+                    subtree: false
+               });
+          });
+     }
+
+     // Set up a MutationObserver for communications table
+     if (window.MutationObserver && document.querySelector('#comms_table')) {
+          var commsObserver = new MutationObserver(function(mutations) {
+               var shouldUpdate = false;
+               mutations.forEach(function(mutation) {
+                    if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
+                         shouldUpdate = true;
+                    }
+                    if (mutation.type === 'childList') {
+                         shouldUpdate = true;
+                    }
+               });
+               if (shouldUpdate && typeof updateCommsCounters === 'function') {
+                    updateCommsCounters();
+               }
+          });
+          
+          // Start observing communications table rows for style changes (show/hide)
+          var commsTableRows = document.querySelectorAll('#comms_table tbody tr');
+          commsTableRows.forEach(function(row) {
+               commsObserver.observe(row, { 
                     attributes: true, 
                     attributeFilter: ['style'],
                     childList: false,
@@ -396,8 +473,8 @@ $(document).ready(function() {
           var visibleMaterials = $('table#materials_table tbody tr:visible:not(.hidden_row)').length;
           
           // Update the specific counter structure from the HTML template
-          // Find the paragraph that contains "Showing X materials out of Y"
-          var counterParagraph = $('.info_wrapper p');
+          // Find the paragraph that contains "Showing X materials out of Y" ONLY in the materials tab
+          var counterParagraph = $('#materials_column_2 .info_wrapper p');
           if (counterParagraph.length > 0) {
                // Update the content with the new counts
                counterParagraph.html('Showing <strong>' + visibleMaterials + '</strong> materials out of <strong>' + totalMaterials + '</strong>');
@@ -431,11 +508,20 @@ $(document).ready(function() {
 
      // Function to update communications counters and "showing X of Y" displays
      function updateCommsCounters() {
-          // Count total communications (excluding header row)
-          var totalComms = $('table#comms_table tbody tr, .comms-list tbody tr, .communications-table tbody tr').length;
+          // Count total communications (only count actual table rows in comms_table)
+          var totalComms = $('table#comms_table tbody tr').length;
           
-          // Count visible communications
-          var visibleComms = $('table#comms_table tbody tr:visible, .comms-list tbody tr:visible, .communications-table tbody tr:visible').length;
+          // Count visible communications - but if the tab is hidden, count all rows
+          var isTabVisible = $('#tab_content_4').is(':visible');
+          var visibleComms;
+          
+          if (isTabVisible) {
+               // Tab is shown, count only visible rows
+               visibleComms = $('table#comms_table tbody tr:visible').length;
+          } else {
+               // Tab is hidden, assume all rows are visible (count all)
+               visibleComms = totalComms;
+          }
           
           // Update "showing X of Y" displays
           $('[data-comms-shown], [data-comm-shown]').text(visibleComms);

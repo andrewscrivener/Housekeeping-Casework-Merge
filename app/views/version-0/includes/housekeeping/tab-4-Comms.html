@@ -14,7 +14,9 @@
                 <div class="info_wrapper">
                     <button id="show_filter_Comms" type="button" class="govuk-button  govuk-button--secondary"
                         data-module="govuk-button">Show filter</button>
-                    <p>Showing <strong>3</strong> communications out of <strong>3</strong></p>
+                    <p>Showing <strong class="showing-comms-count" data-comm-shown>3</strong> communications out of
+                        <strong class="total-comms-count" data-comm-total>3</strong>
+                    </p>
                 </div>
             </div>
 
@@ -39,7 +41,7 @@
             </div>
         </div>
 
-        <table class="govuk-table sortable" id="materials_table">
+        <table class="govuk-table sortable" id="comms_table">
 
             <!-- THEAD - START -->
             <thead class="govuk-table__head">

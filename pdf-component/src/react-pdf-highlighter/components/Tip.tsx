@@ -100,7 +100,7 @@ export class Tip extends Component<Props, State> {
             )
           }}
         >
-          Redact
+          Review and redact
         </button>
       </div>
     )
