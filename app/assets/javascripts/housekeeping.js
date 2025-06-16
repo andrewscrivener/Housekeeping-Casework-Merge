@@ -451,10 +451,11 @@ $(document).ready(function() {
      $('.materials_filters_clear_All').on("click", function (e) {
           e.preventDefault();
           $('#active_filter').hide();
-          // Show only main rows, not hidden detail rows
-          $('table#materials_table tr.material_All:not(.hidden_row)').show();
-          // Ensure hidden detail rows stay hidden
+          // Restore to page load state - show only main material rows, hide detail rows
+          $('table#materials_table tr:not(.hidden_row)').show();
           $('table#materials_table tr.hidden_row').hide();
+          // Reset all material action buttons to unexpanded state
+          $('button.show_material_actions').removeClass('hide').html('Actions <i class="fa-solid fa-chevron-down"></i>');
           $('input[name=filter_materials__New]').prop('checked', false);
           $('input[name=filter_materials__Status]').prop('checked', false);
           $('input[name=filter_materials__Category]').prop('checked', false);
@@ -623,6 +624,9 @@ $(document).ready(function() {
           
           // Update counters after filtering
           updateMaterialsCounters();
+          
+          // Scroll to top of the page
+          window.scrollTo({ top: 0, behavior: 'smooth' });
      });
 
      $('.selected_filter').on("click", function (e) {
@@ -633,10 +637,11 @@ $(document).ready(function() {
      $('.materials_filters_clear_New').on("click", function (e) {
           $('input[name=filter_materials__New]').prop('checked', false);
           $('.materials_filters_Title_1').hide();
-          // Show only main rows, not hidden detail rows
-          $('table#materials_table tr.material_All:not(.hidden_row)').show();
-          // Ensure hidden detail rows stay hidden
+          // Restore to page load state - show only main material rows, hide detail rows
+          $('table#materials_table tr:not(.hidden_row)').show();
           $('table#materials_table tr.hidden_row').hide();
+          // Reset all material action buttons to unexpanded state
+          $('button.show_material_actions').removeClass('hide').html('Actions <i class="fa-solid fa-chevron-down"></i>');
           
           if ($('input[name=filter_materials__New]:checked').length == 0 && $('input[name=filter_materials__Status]:checked').length == 0 && $('input[name=filter_materials__Category]:checked').length == 0) {
                $('#active_filter').hide();
@@ -651,10 +656,11 @@ $(document).ready(function() {
      // SECTION 2
      $('.materials_filters_clear_Used').on("click", function (e) {
           $('input[id=filter_materials__Status_1]').prop('checked', false);
-          // Show only main rows, not hidden detail rows
-          $('table#materials_table tr.material_All:not(.hidden_row)').show();
-          // Ensure hidden detail rows stay hidden
+          // Restore to page load state - show only main material rows, hide detail rows
+          $('table#materials_table tr:not(.hidden_row)').show();
           $('table#materials_table tr.hidden_row').hide();
+          // Reset all material action buttons to unexpanded state
+          $('button.show_material_actions').removeClass('hide').html('Actions <i class="fa-solid fa-chevron-down"></i>');
 
           if ($('input[name=filter_materials__New]:checked').length == 0 && $('input[name=filter_materials__Status]:checked').length == 0 && $('input[name=filter_materials__Category]:checked').length == 0) {
                $('#active_filter').hide();
@@ -671,7 +677,11 @@ $(document).ready(function() {
 
      $('.materials_filters_clear_Unused').on("click", function (e) {
           $('input[id=filter_materials__Status_2]').prop('checked', false);
-          $('table#materials_table tr.material_All').show();
+          // Restore to page load state - show only main material rows, hide detail rows
+          $('table#materials_table tr:not(.hidden_row)').show();
+          $('table#materials_table tr.hidden_row').hide();
+          // Reset all material action buttons to unexpanded state
+          $('button.show_material_actions').removeClass('hide').html('Actions <i class="fa-solid fa-chevron-down"></i>');
 
           if ($('input[name=filter_materials__New]:checked').length == 0 && $('input[name=filter_materials__Status]:checked').length == 0 && $('input[name=filter_materials__Category]:checked').length == 0) {
                $('#active_filter').hide();
@@ -681,11 +691,18 @@ $(document).ready(function() {
           } else {
                $('#active_filter').show();
           }
+          
+          // Update counters after clearing filter
+          updateMaterialsCounters();
      });
 
      $('.materials_filters_clear_None').on("click", function (e) {
           $('input[id=filter_materials__Status_3]').prop('checked', false);
-          $('table#materials_table tr.material_All').show();
+          // Restore to page load state - show only main material rows, hide detail rows
+          $('table#materials_table tr:not(.hidden_row)').show();
+          $('table#materials_table tr.hidden_row').hide();
+          // Reset all material action buttons to unexpanded state
+          $('button.show_material_actions').removeClass('hide').html('Actions <i class="fa-solid fa-chevron-down"></i>');
 
           if ($('input[name=filter_materials__New]:checked').length == 0 && $('input[name=filter_materials__Status]:checked').length == 0 && $('input[name=filter_materials__Category]:checked').length == 0) {
                $('#active_filter').hide();
@@ -695,12 +712,19 @@ $(document).ready(function() {
           } else {
                $('#active_filter').show();
           }
+          
+          // Update counters after clearing filter
+          updateMaterialsCounters();
      });  
 
      // SECTION 3
      $('.materials_filters_clear_Statement').on("click", function (e) {
           $('input[id=filter_materials__Category_1]').prop('checked', false);
-          $('table#materials_table tr.material_All').show();
+          // Restore to page load state - show only main material rows, hide detail rows
+          $('table#materials_table tr:not(.hidden_row)').show();
+          $('table#materials_table tr.hidden_row').hide();
+          // Reset all material action buttons to unexpanded state
+          $('button.show_material_actions').removeClass('hide').html('Actions <i class="fa-solid fa-chevron-down"></i>');
 
           if ($('input[name=filter_materials__New]:checked').length == 0 && $('input[name=filter_materials__Status]:checked').length == 0 && $('input[name=filter_materials__Category]:checked').length == 0) {
                $('#active_filter').hide();
@@ -710,11 +734,18 @@ $(document).ready(function() {
           } else {
                $('#active_filter').show();
           }
+          
+          // Update counters after clearing filter
+          updateMaterialsCounters();
      });  
 
      $('.materials_filters_clear_Exhibit').on("click", function (e) {
           $('input[id=filter_materials__Category_2]').prop('checked', false);
-          $('table#materials_table tr.material_All').show();
+          // Restore to page load state - show only main material rows, hide detail rows
+          $('table#materials_table tr:not(.hidden_row)').show();
+          $('table#materials_table tr.hidden_row').hide();
+          // Reset all material action buttons to unexpanded state
+          $('button.show_material_actions').removeClass('hide').html('Actions <i class="fa-solid fa-chevron-down"></i>');
 
           if ($('input[name=filter_materials__New]:checked').length == 0 && $('input[name=filter_materials__Status]:checked').length == 0 && $('input[name=filter_materials__Category]:checked').length == 0) {
                $('#active_filter').hide();
@@ -724,14 +755,18 @@ $(document).ready(function() {
           } else {
                $('#active_filter').show();
           }
+          
+          // Update counters after clearing filter
+          updateMaterialsCounters();
      });  
 
      $('.materials_filters_clear_MG_Form').on("click", function (e) {
           $('input[id=filter_materials__Category_3]').prop('checked', false);
-          // Show only main rows, not hidden detail rows
-          $('table#materials_table tr.material_All:not(.hidden_row)').show();
-          // Ensure hidden detail rows stay hidden
+          // Restore to page load state - show only main material rows, hide detail rows
+          $('table#materials_table tr:not(.hidden_row)').show();
           $('table#materials_table tr.hidden_row').hide();
+          // Reset all material action buttons to unexpanded state
+          $('button.show_material_actions').removeClass('hide').html('Actions <i class="fa-solid fa-chevron-down"></i>');
 
           if ($('input[name=filter_materials__New]:checked').length == 0 && $('input[name=filter_materials__Status]:checked').length == 0 && $('input[name=filter_materials__Category]:checked').length == 0) {
                $('#active_filter').hide();
@@ -748,7 +783,11 @@ $(document).ready(function() {
 
      $('.materials_filters_clear_Other').on("click", function (e) {
           $('input[id=filter_materials__Category_4]').prop('checked', false);
-          $('table#materials_table tr.material_All').show();
+          // Restore to page load state - show only main material rows, hide detail rows
+          $('table#materials_table tr:not(.hidden_row)').show();
+          $('table#materials_table tr.hidden_row').hide();
+          // Reset all material action buttons to unexpanded state
+          $('button.show_material_actions').removeClass('hide').html('Actions <i class="fa-solid fa-chevron-down"></i>');
 
           if ($('input[name=filter_materials__New]:checked').length == 0 && $('input[name=filter_materials__Status]:checked').length == 0 && $('input[name=filter_materials__Category]:checked').length == 0) {
                $('#active_filter').hide();
@@ -758,11 +797,18 @@ $(document).ready(function() {
           } else {
                $('#active_filter').show();
           }
+          
+          // Update counters after clearing filter
+          updateMaterialsCounters();
      });  
 
      $('.materials_filters_clear_Always_Unused').on("click", function (e) {
           $('input[id=filter_materials__Category_5]').prop('checked', false);
-          $('table#materials_table tr.material_All').show();
+          // Restore to page load state - show only main material rows, hide detail rows
+          $('table#materials_table tr:not(.hidden_row)').show();
+          $('table#materials_table tr.hidden_row').hide();
+          // Reset all material action buttons to unexpanded state
+          $('button.show_material_actions').removeClass('hide').html('Actions <i class="fa-solid fa-chevron-down"></i>');
 
           if ($('input[name=filter_materials__New]:checked').length == 0 && $('input[name=filter_materials__Status]:checked').length == 0 && $('input[name=filter_materials__Category]:checked').length == 0) {
                $('#active_filter').hide();
@@ -772,6 +818,9 @@ $(document).ready(function() {
           } else {
                $('#active_filter').show();
           }
+          
+          // Update counters after clearing filter
+          updateMaterialsCounters();
      });  
 
 
@@ -1116,7 +1165,7 @@ function renameDocument() {
           $('table#materials_table tr.rename_document td.title_column').prepend(`<strong class="govuk-tag govuk-tag--green">Renamed</strong>`);
 
 
-     }, 6000)
+     }, 1000)
     // var newDocumentName = $('#rename-Document').val();
     // $('.updated-message p strong').text(newDocumentName);
     // // $('.updated-message .info-text').text('Document has been renamed ' + newDocumentName);
@@ -1406,8 +1455,8 @@ function reclassifyCommsToUnused() {
  * Shows a success notification when reclassification is complete
  */
 function showReclassificationSuccess(type, count, items) {
-     // Hide any existing notifications
-     $('.govuk-notification-banner').hide();
+     // Remove any existing notification banners
+     $('.govuk-notification-banner').remove();
      
      // Create success message
      var itemText = count === 1 ? (type === 'materials' ? 'material' : 'communication') 
