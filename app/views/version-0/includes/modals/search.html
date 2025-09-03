@@ -92,8 +92,7 @@
                                                                     id="searchDocumentNew" name="searchDocumentNew"
                                                                     type="checkbox" value="New (unread)">
                                                                 <label class="govuk-label govuk-checkboxes__label"
-                                                                    for="searchDocumentNew">Show only new material
-                                                                    (unread)</label>
+                                                                    for="searchDocumentNew">Show unread</label>
                                                             </div>
                                                         </div>
                                                     </fieldset>
@@ -103,91 +102,74 @@
 
                                         <div class="filter text-filter">
                                             <div class="govuk-form-group">
-                                                <label class="govuk-label govuk-label--s legend"
-                                                    for="searchDocumentType">Status</label>
-                                                <div class="govuk-form-group">
-                                                    <fieldset class="govuk-fieldset">
-                                                        <div class="govuk-checkboxes govuk-checkboxes--small"
-                                                            data-module="govuk-checkboxes">
-                                                            <div class="govuk-checkboxes__item">
-                                                                <input class="govuk-checkboxes__input"
-                                                                    id="searchDocumentType" name="searchDocumentType"
-                                                                    type="checkbox" value="Used">
-                                                                <label class="govuk-label govuk-checkboxes__label"
-                                                                    for="searchDocumentType">Used</label>
-                                                            </div>
-                                                            <div class="govuk-checkboxes__item">
-                                                                <input class="govuk-checkboxes__input"
-                                                                    id="searchDocumentType-2" name="searchDocumentType"
-                                                                    type="checkbox" value="Unused">
-                                                                <label class="govuk-label govuk-checkboxes__label"
-                                                                    for="searchDocumentType-2">Unused</label>
-                                                            </div>
-                                                            <div class="govuk-checkboxes__item">
-                                                                <input class="govuk-checkboxes__input"
-                                                                    id="searchDocumentType-3" name="searchDocumentType"
-                                                                    type="checkbox" value="None">
-                                                                <label class="govuk-label govuk-checkboxes__label"
-                                                                    for="searchDocumentType-3">None</label>
-                                                            </div>
-                                                        </div>
-                                                    </fieldset>
-                                                </div>
-                                            </div>
-                                        </div>
+                                                <fieldset class="govuk-fieldset">
+                                                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">Category</legend>
+                                                    <div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
 
-                                        <div class="filter text-filter">
-                                            <div class="govuk-form-group">
-                                                <label class="govuk-label govuk-label--s legend"
-                                                    for="searchDocumentCategory">Category</label>
-                                                <div class="govuk-form-group">
-                                                    <fieldset class="govuk-fieldset">
-                                                        <div class="govuk-checkboxes govuk-checkboxes--small"
-                                                            data-module="govuk-checkboxes">
-                                                            <div class="govuk-checkboxes__item">
-                                                                <input class="govuk-checkboxes__input"
-                                                                    id="searchDocumentCategory-1"
-                                                                    name="searchDocumentCategory" type="checkbox"
-                                                                    value="statements">
-                                                                <label class="govuk-label govuk-checkboxes__label"
-                                                                    for="searchDocumentCategory-1">Statements</label>
-                                                            </div>
-                                                            <div class="govuk-checkboxes__item">
-                                                                <input class="govuk-checkboxes__input"
-                                                                    id="searchDocumentCategory-2"
-                                                                    name="searchDocumentCategory" type="checkbox"
-                                                                    value="exhibits">
-                                                                <label class="govuk-label govuk-checkboxes__label"
-                                                                    for="searchDocumentCategory-2">Exhibits</label>
-                                                            </div>
-                                                            <div class="govuk-checkboxes__item">
-                                                                <input class="govuk-checkboxes__input"
-                                                                    id="searchDocumentCategory-3"
-                                                                    name="searchDocumentCategory" type="checkbox"
-                                                                    value="MG Form">
-                                                                <label class="govuk-label govuk-checkboxes__label"
-                                                                    for="searchDocumentCategory-3">MG Form</label>
-                                                            </div>
-                                                            <div class="govuk-checkboxes__item">
-                                                                <input class="govuk-checkboxes__input"
-                                                                    id="searchDocumentCategory-4"
-                                                                    name="searchDocumentCategory" type="checkbox"
-                                                                    value="Other Materials">
-                                                                <label class="govuk-label govuk-checkboxes__label"
-                                                                    for="searchDocumentCategory-4">Other
-                                                                    Materials</label>
-                                                            </div>
-                                                            <div class="govuk-checkboxes__item">
-                                                                <input class="govuk-checkboxes__input"
-                                                                    id="searchDocumentCategory-5"
-                                                                    name="searchDocumentCategory" type="checkbox"
-                                                                    value="Always Unused">
-                                                                <label class="govuk-label govuk-checkboxes__label"
-                                                                    for="searchDocumentCategory-5">Always Unused</label>
-                                                            </div>
+                                                        <div class="govuk-checkboxes__item">
+                                                            <input class="govuk-checkboxes__input" id="filter_materials__Category_2"
+                                                                   name="filter_materials__Category" type="checkbox" value="Case overview">
+                                                            <label class="govuk-label govuk-checkboxes__label"
+                                                                   for="filter_materials__Category_2">Case overview</label>
                                                         </div>
-                                                    </fieldset>
-                                                </div>
+                                                        <div class="govuk-checkboxes__item">
+                                                            <input class="govuk-checkboxes__input" id="filter_materials__Category_9"
+                                                                   name="filter_materials__Category" type="checkbox" value="Communications">
+                                                            <label class="govuk-label govuk-checkboxes__label" for="filter_materials__Category_9">Communications</label>
+                                                        </div>
+
+                                                        <div class="govuk-checkboxes__item">
+                                                            <input class="govuk-checkboxes__input" id="filter_materials__Category_8"
+                                                                   name="filter_materials__Category" type="checkbox" value="Court preparation">
+                                                            <label class="govuk-label govuk-checkboxes__label" for="filter_materials__Category_8">Court preparation</label>
+                                                        </div>
+
+                                                        <div class="govuk-checkboxes__item">
+                                                            <input class="govuk-checkboxes__input" id="filter_materials__Category_7"
+                                                                   name="filter_materials__Category" type="checkbox" value="Defendant">
+                                                            <label class="govuk-label govuk-checkboxes__label" for="filter_materials__Category_7">Defendant</label>
+                                                        </div>
+
+                                                        <div class="govuk-checkboxes__item">
+                                                            <input class="govuk-checkboxes__input" id="filter_materials__Category_4"
+                                                                   name="filter_materials__Category" type="checkbox" value="Exhibits">
+                                                            <label class="govuk-label govuk-checkboxes__label"
+                                                                   for="filter_materials__Category_4">Exhibits</label>
+                                                        </div>
+
+                                                        <div class="govuk-checkboxes__item">
+                                                            <input class="govuk-checkboxes__input" id="filter_materials__Category_5"
+                                                                   name="filter_materials__Category" type="checkbox" value="Forensics">
+                                                            <label class="govuk-label govuk-checkboxes__label" for="filter_materials__Category_5">Forensics</label>
+                                                        </div>
+
+                                                        <div class="govuk-checkboxes__item">
+                                                            <input class="govuk-checkboxes__input" id="filter_materials__Category_1"
+                                                                   name="filter_materials__Category" type="checkbox" value="Reviews">
+                                                            <label class="govuk-label govuk-checkboxes__label"
+                                                                   for="filter_materials__Category_1">Reviews</label>
+                                                        </div>
+
+                                                        <div class="govuk-checkboxes__item">
+                                                            <input class="govuk-checkboxes__input" id="filter_materials__Category_3"
+                                                                   name="filter_materials__Category" type="checkbox" value="Statements">
+                                                            <label class="govuk-label govuk-checkboxes__label"
+                                                                   for="filter_materials__Category_3">Statements</label>
+                                                        </div>
+
+                                                        <div class="govuk-checkboxes__item">
+                                                            <input class="govuk-checkboxes__input" id="filter_materials__Category_10"
+                                                                   name="filter_materials__Category" type="checkbox" value="Uncategorised">
+                                                            <label class="govuk-label govuk-checkboxes__label" for="filter_materials__Category_10">Uncategorised</label>
+                                                        </div>
+
+                                                        <div class="govuk-checkboxes__item">
+                                                            <input class="govuk-checkboxes__input" id="filter_materials__Category_6"
+                                                                   name="filter_materials__Category" type="checkbox" value="Unused material">
+                                                            <label class="govuk-label govuk-checkboxes__label" for="filter_materials__Category_6">Unused material</label>
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
                                             </div>
                                         </div>
 
