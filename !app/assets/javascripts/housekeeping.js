@@ -344,7 +344,9 @@ $(document).ready(function() {
                $('.materials_filters_Title_1, .materials_filters_clear_New').show();
 
                $('table#materials_table tr').hide();
-               $('table#materials_table thead tr, table#materials_table tr.material_New').show();
+
+               // $('table#materials_table thead tr, table#materials_table tr.material_New').show();
+               $('table#materials_table thead tr, table#materials_table tr.material_Reviews').show();
           }
 
           // SECTION 2
@@ -369,7 +371,7 @@ $(document).ready(function() {
                $('.materials_filters_clear_None').show(); 
 
                $('table#materials_table tr').hide();
-               $('table#materials_table thead tr, table#materials_table tr.material_None').show();
+               $('table#materials_table thead tr, table#materials_table tr.material_Statement').show();
           }
 
           // SECTION 3
@@ -378,30 +380,38 @@ $(document).ready(function() {
                $('.materials_filters_Title_3').show();
           }
           if ($('input[id=filter_materials__Category_1]').is(':checked')) { 
-               $('.materials_filters_clear_Statement').show(); 
+               $('.materials_filters_clear_Review').show();
+
+               $('table#materials_table tr').hide();
+               $('table#materials_table thead tr, table#materials_table tr.material_Review').show();
+          }
+          if ($('input[id=filter_materials__Category_2]').is(':checked')) { 
+               $('.materials_filters_clear_Case_overview').show();
+
+               $('table#materials_table tr').hide();
+               $('table#materials_table thead tr, table#materials_table tr.material_Case_overview').show();
+          }
+          if ($('input[id=filter_materials__Category_3]').is(':checked')) { 
+               $('.materials_filters_clear_Statement').show();
 
                $('table#materials_table tr').hide();
                $('table#materials_table thead tr, table#materials_table tr.material_Statement').show();
           }
-          if ($('input[id=filter_materials__Category_2]').is(':checked')) { 
-               $('.materials_filters_clear_Exhibit').show(); 
+          if ($('input[id=filter_materials__Category_4]').is(':checked')) { 
+               $('.materials_filters_clear_Exhibit').show();
 
                $('table#materials_table tr').hide();
                $('table#materials_table thead tr, table#materials_table tr.material_Exhibit').show();
           }
-          if ($('input[id=filter_materials__Category_3]').is(':checked')) { 
-               $('.materials_filters_clear_MG_Form').show(); 
 
-               $('table#materials_table tr').hide();
-               $('table#materials_table thead tr, table#materials_table tr.material_MG_Form').show();
-          }
-          if ($('input[id=filter_materials__Category_4]').is(':checked')) { 
-               $('.materials_filters_clear_Other').show(); 
+         if ($('input[id=filter_materials__Category_5]').is(':checked')) {
+             $('.materials_filters_clear_Forensics').show();
 
-               $('table#materials_table tr').hide();
-               $('table#materials_table thead tr, table#materials_table tr.material_Other').show();
-          }
-          if ($('input[id=filter_materials__Category_5]').is(':checked')) { 
+             $('table#materials_table tr').hide();
+             $('table#materials_table thead tr, table#materials_table tr.material_Forensics').show();
+         }
+
+          if ($('input[id=filter_materials__Category_6]').is(':checked')) {
                $('.materials_filters_clear_Always_Unused').show(); 
 
                $('table#materials_table tr').hide();
@@ -409,6 +419,33 @@ $(document).ready(function() {
                $('.no_results').show();
           }
 
+         if ($('input[id=filter_materials__Category_7]').is(':checked')) {
+             $('.materials_filters_clear_Defendant').show();
+
+             $('table#materials_table tr').hide();
+             $('table#materials_table thead tr, table#materials_table tr.material_Defendant').show();
+         }
+
+         if ($('input[id=filter_materials__Category_8]').is(':checked')) {
+             $('.materials_filters_clear_Court_preparation').show();
+
+             $('table#materials_table tr').hide();
+             $('table#materials_table thead tr, table#materials_table tr.material_Court_preparation').show();
+         }
+
+         if ($('input[id=filter_materials__Category_9]').is(':checked')) {
+             $('.materials_filters_clear_Communications').show();
+
+             $('table#materials_table tr').hide();
+             $('table#materials_table thead tr, table#materials_table tr.material_Communications').show();
+         }
+
+         if ($('input[id=filter_materials__Category_10]').is(':checked')) {
+             $('.materials_filters_clear_Uncategorised').show();
+
+             $('table#materials_table tr').hide();
+             $('table#materials_table thead tr, table#materials_table tr.material_Uncategorised').show();
+         }
      });
 
      $('.selected_filter').on("click", function (e) {
@@ -471,7 +508,7 @@ $(document).ready(function() {
 
      // SECTION 3
      $('.materials_filters_clear_Statement').on("click", function (e) {
-          $('input[id=filter_materials__Category_1]').prop('checked', false);
+          $('input[id=filter_materials__Category_3]').prop('checked', false);
           $('table#materials_table tr.material_All').show();
 
           if ($('input[name=filter_materials__New]:checked').length == 0 && $('input[name=filter_materials__Status]:checked').length == 0 && $('input[name=filter_materials__Category]:checked').length == 0) {
@@ -485,20 +522,20 @@ $(document).ready(function() {
      });  
 
      $('.materials_filters_clear_Exhibit').on("click", function (e) {
-          $('input[id=filter_materials__Category_2]').prop('checked', false);
+          $('input[id=filter_materials__Category_4]').prop('checked', false);
           $('table#materials_table tr.material_All').show();
 
           if ($('input[name=filter_materials__New]:checked').length == 0 && $('input[name=filter_materials__Status]:checked').length == 0 && $('input[name=filter_materials__Category]:checked').length == 0) {
                $('#active_filter').hide();
           } else if ($('input[name=filter_materials__Category]:checked').length == 0 || $('input[name=filter_materials__New]:checked').length >= 1 || $('input[name=filter_materials__Status]:checked').length >= 1) {
-               $('.materials_filters_Title_3').hide();
+               $('.materials_filters_Title_4').hide();
                $('#active_filter').show();
           } else {
                $('#active_filter').show();
           }
      });  
 
-     $('.materials_filters_clear_MG_Form').on("click", function (e) {
+     $('.materials_filters_clear_Statement').on("click", function (e) {
           $('input[id=filter_materials__Category_3]').prop('checked', false);
           $('table#materials_table tr.material_All').show();
 
