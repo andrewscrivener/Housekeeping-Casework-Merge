@@ -591,36 +591,74 @@ $(document).ready(function() {
                $('.materials_filters_Title_3').show();
           }
           if ($('input[id=filter_materials__Category_1]').is(':checked')) { 
-               $('.materials_filters_clear_Statement').show(); 
+               $('.materials_filters_clear_Review').show();
+
+               $('table#materials_table tr').hide();
+               $('table#materials_table thead tr, table#materials_table tr.material_Review').show();
+          }
+          if ($('input[id=filter_materials__Category_2]').is(':checked')) { 
+               $('.materials_filters_clear_Case_overview').show();
+
+               $('table#materials_table tr').hide();
+               $('table#materials_table thead tr, table#materials_table tr.material_Case_overview').show();
+          }
+          if ($('input[id=filter_materials__Category_3]').is(':checked')) { 
+               $('.materials_filters_clear_Statement').show();
 
                $('table#materials_table tr').hide();
                $('table#materials_table thead tr, table#materials_table tr.material_Statement').show();
           }
-          if ($('input[id=filter_materials__Category_2]').is(':checked')) { 
-               $('.materials_filters_clear_Exhibit').show(); 
+          if ($('input[id=filter_materials__Category_4]').is(':checked')) { 
+               $('.materials_filters_clear_Exhibit').show();
 
                $('table#materials_table tr').hide();
                $('table#materials_table thead tr, table#materials_table tr.material_Exhibit').show();
           }
-          if ($('input[id=filter_materials__Category_3]').is(':checked')) { 
-               $('.materials_filters_clear_MG_Form').show(); 
 
-               $('table#materials_table tr').hide();
-               $('table#materials_table thead tr, table#materials_table tr.material_MG_Form').show();
-          }
-          if ($('input[id=filter_materials__Category_4]').is(':checked')) { 
-               $('.materials_filters_clear_Other').show(); 
+         if ($('input[id=filter_materials__Category_5]').is(':checked')) {
+             $('.materials_filters_clear_Forensics').show();
 
-               $('table#materials_table tr').hide();
-               $('table#materials_table thead tr, table#materials_table tr.material_Other').show();
-          }
-          if ($('input[id=filter_materials__Category_5]').is(':checked')) { 
+             $('table#materials_table tr').hide();
+             $('table#materials_table thead tr, table#materials_table tr.material_Forensics').show();
+         }
+
+          if ($('input[id=filter_materials__Category_6]').is(':checked')) {
                $('.materials_filters_clear_Always_Unused').show(); 
 
                $('table#materials_table tr').hide();
                $('table#materials_table thead tr, table#materials_table tr.material_Always_Unused').show();
                $('.no_results').show();
           }
+
+
+         if ($('input[id=filter_materials__Category_7]').is(':checked')) {
+             $('.materials_filters_clear_Defendant').show();
+
+             $('table#materials_table tr').hide();
+             $('table#materials_table thead tr, table#materials_table tr.material_Defendant').show();
+         }
+
+         if ($('input[id=filter_materials__Category_8]').is(':checked')) {
+             $('.materials_filters_clear_Court_preparation').show();
+
+             $('table#materials_table tr').hide();
+             $('table#materials_table thead tr, table#materials_table tr.material_Court_preparation').show();
+         }
+
+         if ($('input[id=filter_materials__Category_9]').is(':checked')) {
+             $('.materials_filters_clear_Communications').show();
+
+             $('table#materials_table tr').hide();
+             $('table#materials_table thead tr, table#materials_table tr.material_Communications').show();
+         }
+
+         if ($('input[id=filter_materials__Category_10]').is(':checked')) {
+             $('.materials_filters_clear_Uncategorised').show();
+
+             $('table#materials_table tr').hide();
+             $('table#materials_table thead tr, table#materials_table tr.material_Uncategorised').show();
+         }
+
           
           // Update counters after filtering
           updateMaterialsCounters();
