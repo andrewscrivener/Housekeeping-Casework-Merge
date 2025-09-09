@@ -48,8 +48,6 @@
                                 class="govuk-button govuk-button--disabled redact_Document_Mulitple_Docs"
                                 data-module="govuk-button" disabled>Open to review and edit/redact</button>
                         </div>
-                        <button type="button" class="govuk-button govuk-button--secondary" data-module="govuk-button"
-                            id="auto_reclassify_Materials">Add material</button>
                     </div>
                 </div>
             </div>
@@ -208,7 +206,7 @@
                 {% if data['discarding_material_COMPLETED'] == 'true' and data['material_selected'] == 'MG05 MCLOVE' %}
 
                 {% else %}
-                <tr class="govuk-table__row document_row_3 material_Used material_New material_All">
+                <tr class="govuk-table__row document_row_3 material_Always_Unused material_New material_All">
                     <td class="govuk-table__cell">
                         <div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
                             <div class="govuk-checkboxes__item">
@@ -267,7 +265,7 @@
                 {% if data['discarding_material_COMPLETED'] == 'true' and data['material_selected'] == 'MG06 3 June' %}
 
                 {% else %}
-                <tr class="govuk-table__row document_row_4 material_MG_Form material_Used material_New material_All">
+                <tr class="govuk-table__row document_row_4 material_MG_Form material_Always_Unused material_New material_All">
                     <td class="govuk-table__cell">
                         <div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
                             <div class="govuk-checkboxes__item">
@@ -326,7 +324,7 @@
                 {% if data['discarding_material_COMPLETED'] == 'true' and data['material_selected'] == 'MG06 10 June' %}
 
                 {% else %}
-                <tr class="govuk-table__row document_row_5 material_MG_Form material_Used material_New material_All">
+                <tr class="govuk-table__row document_row_5 material_MG_Form material_Always_Unused material_New material_All">
                     <td class="govuk-table__cell">
                         <div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
                             <div class="govuk-checkboxes__item">
@@ -813,7 +811,7 @@
 
                 {% else %}
                 <tr
-                    class="govuk-table__row document_row_13 material_Unused material_New material_All">
+                    class="govuk-table__row document_row_13 material_Always_Unused material_New material_All">
                     <td class="govuk-table__cell">
                         <div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
                             <div class="govuk-checkboxes__item">
